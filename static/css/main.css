@@ -1,0 +1,13 @@
+.jumbotron-heading{
+    font-weight: bold;
+}
+
+.form{
+   border: 8px solid transparent;
+   border-image: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%) 20% / 1 / 0 stretch;
+   padding: 15px;
+}
+
+.rounded-circle {
+    background-color: #aaa;
+}

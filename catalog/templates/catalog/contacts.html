@@ -1,0 +1,40 @@
+
+
+
+{% extends 'catalog/base.html' %}
+
+{% block contacts %}
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-5">
+                <h4 class="text-center">Форма обратной связи</h4>
+                <form class="form">
+                    <div class="mb-3 text-start">
+                        <label for="name" class="form-label">Имя</label>
+                        <input name="name" type="text" class="form-control" id="name" placeholder="Введите имя">
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="email" class="form-label">Email</label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Введите email">
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="message" class="form-label">Сообщение</label>
+                        <textarea name="message" class="form-control" id="message" rows="5" placeholder="Введите сообщение"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-5">
+                <h4 class="text-center">Наши контакты</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et lacus vitae diam pharetra
+                    lobortis in non mi. Nullam mattis ullamcorper mi vitae egestas. Phasellus ac purus aliquet,
+                    ultricies ex vitae, consequat dui. Fusce sit amet ullamcorper mauris, at aliquam risus. Nam
+                    convallis felis nec ex pharetra iaculis. Nullam posuere, tortor ac eleifend facilisis, elit
+                    erat cursus felis, eget tristique nisl urna sit amet nunc. Aliquam sed dui eu tortor pharetra
+                    tristique.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
