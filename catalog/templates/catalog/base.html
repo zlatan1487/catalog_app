@@ -24,7 +24,6 @@
               <h4 class="text-white">Меню</h4>
               <ul class="list-unstyled">
                 <li><a href="{% url 'catalog:index' %}" class="text-white">Главная</a></li>
-                <li><a href="{% url 'catalog:categories' %}" class="text-white">Каталог</a></li>
                 <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
 
               </ul>
@@ -54,10 +53,10 @@
         </div>
       </section>
 
-      <div class="album py-5 bg-light">
+      <div class="album py-5 bg-light" style="display: flex; justify-content: center;">
         <div class="container">
           <div class="row">
-            {% block content %}
+            {% block products %}
             {% endblock %}
             {% block contacts %}
             {% endblock %}
