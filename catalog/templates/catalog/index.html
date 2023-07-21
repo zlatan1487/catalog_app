@@ -1,7 +1,7 @@
 {% extends 'catalog/base.html' %}
 {% load mediapath_tags %}
 
-{% block products %}
+{% block content %}
     {% for object in object_list %}
         <div class="col-mad-4">
             <div class="card mb-3 box-shadow" style="width: 310px; margin: 5px;height: 450px;">
@@ -10,14 +10,11 @@
                 </div>
                 <div class="card-body">
                     <h3 class="card-text">{{ object.title | title }}</h3>
-                    <p>{{ object.purchase_price }} руб.</p>
-                    <small>({{ object.category | title }})</small>
                     <p>{{ object.description | title |truncatechars:100 }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="#" type="button" class="btn btn-sm btn-outline-secondary">редактировать</a>
+                            <a href="{% url 'catalog:product_detail_view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">посмотреть</a>
                         </div>
-                        <small class="text-muted">{{ object.last_modified_date }}</small>
                     </div>
                 </div>
             </div>

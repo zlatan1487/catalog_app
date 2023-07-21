@@ -2,7 +2,7 @@
 
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ title }}</title>
@@ -10,75 +10,77 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/album.css' %}" rel="stylesheet">
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <header>
-      <div class="collapse bg-dark" id="navbarHeader">
+<header>
+    <div class="collapse bg-dark" id="navbarHeader">
         <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Меню</h4>
-              <ul class="list-unstyled">
-                <li><a href="{% url 'catalog:index' %}" class="text-white">Главная</a></li>
-                <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">Меню</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'catalog:index' %}" class="text-white">Главная</a></li>
+                        <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
 
-              </ul>
+                    </ul>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark box-shadow">
+    </div>
+    <div class="navbar navbar-dark bg-dark box-shadow">
         <div class="container d-flex justify-content-between">
-          <a href="{% url 'catalog:index' %}" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-            <strong>Магазин</strong>
-          </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+            <a href="{% url 'catalog:index' %}" class="navbar-brand d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                <strong>Магазин</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-      </div>
-    </header>
+    </div>
+</header>
 
-    <main role="main">
+<main role="main">
 
-      <section class="text-center mt-5">
+    <section class="text-center mt-5">
         <div class="container">
-          <h1 class="jumbotron-heading">{{ title }}</h1>
+            <h1 class="jumbotron-heading">{{ title }} {{ product.title }}</h1>
 
         </div>
-      </section>
+    </section>
 
-      <div class="album py-5 bg-light" style="display: flex; justify-content: center;">
+    <div class="album py-5 bg-light" style="display: flex; justify-content: center;">
         <div class="container">
-          <div class="row">
-            {% block products %}
-            {% endblock %}
-            {% block contacts %}
-            {% endblock %}
-          </div>
+            <div class="row">
+                {% block content %}
+                {% endblock %}
+                {% block product %}
+                {% endblock %}
+                {% block contacts %}
+                {% endblock %}
+            </div>
         </div>
-      </div>
+    </div>
 
-    </main>
+</main>
 
-    <footer class="text-muted">
-      <div class="container">
+<footer class="text-muted">
+    <div class="container">
         <p class="float-right">
-          <a href="#">Back to top</a>
+            <a href="#">Back to top</a>
         </p>
         <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
         <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
-      </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="{% static 'js/popper.min.js'%}"></script>
-    <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'js/holder.min.js'%}"></script>
-  </body>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="{% static 'js/popper.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+<script src="{% static 'js/holder.min.js'%}"></script>
+</body>
 </html>
