@@ -2,23 +2,29 @@
 {% load mediapath_tags %}
 
 {% block content %}
-    {% for object in object_list %}
-        <div class="col-mad-4">
-            <div class="card mb-3 box-shadow" style="width: 310px; margin: 5px;height: 450px;">
-                <div class="card-img-container" style="display: flex;justify-content: center;align-items: center;width: 300px;height: 250px;overflow: hidden;">
-                    <img class="card-img-top" style="width: auto;max-width: 100%;max-height: 100%;object-fit: contain;" src="{% mediapath object.image %}" alt="Card image cap">
-                </div>
-                <div class="card-body">
-                    <h3 class="card-text">{{ object.title | title }}</h3>
-                    <p>{{ object.description | title |truncatechars:100 }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a href="{% url 'catalog:product_detail_view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">посмотреть</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
+    <div class="col-12">
+        <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
+    </div>
 
+    {% for object in object_list %}
+         <div class="col-4">
+              <div class="card shadow-sm" style="margin-top: 10px; margin-bottom: 10px">
+                  <div class="card-body">
+                      <h4 class="card-text">{{ object.title | title |truncatechars:20  }}</h4>
+                      <p>{{ object.description | title |truncatechars:33 }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                              <a href="{% url 'catalog:product_detail' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">view</a>
+                              <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">edit</a>
+                              <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">delete</a>
+
+                          </div>
+
+                          <a class="btn btn-warning" href="{% url 'catalog:toggle_activity' object.pk %}">deactivate</a>
+                      </div>
+                  </div>
+              </div>
+         </div>
+    {% endfor %}
 {% endblock %}
+

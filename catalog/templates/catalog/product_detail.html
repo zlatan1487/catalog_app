@@ -5,15 +5,18 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img class="card-img-top" style="width: auto; max-width: 100%; max-height: 100%; object-fit: contain;" src="{% mediapath product.image %}" alt="{{ product.title }}">
+                <img class="card-img-top" style="width: auto; max-width: 100%; max-height: 100%; object-fit: contain;" src="{% mediapath product.preview %}" alt="{{ product.title }}">
             </div>
             <div class="col-md-6">
-                <h2>{{ product.title }}</h2>
+                <h2>{{ product.title }} - "{{ product.slug }}"</h2>
                 <p>{{ product.description }}</p>
                 <p>Цена: {{ product.purchase_price }} руб.</p>
-                <p>{{ object.purchase_price }}</p>
-                <small>({{ object.category | title }})</small>
-                <small class="text-muted">{{ object.last_modified_date }}</small>
+                <small>Категория: "{{ object.category | title }}"</small>
+                <br>
+                <small class="text-muted">Создано: {{ object.created_at }}</small>
+            </div>
+            <div class="card-footer">
+                Просмотры: {{ object.views_count}}
             </div>
         </div>
     </div>
