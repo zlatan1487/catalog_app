@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+{% load mediapath_tags %}
+
+{% block content %}
+    <div class="col-12">
+        <a class="btn btn-outline-primary" href="{% url 'blog:create' %}">Добавить блог</a>
+    </div>
+
+    {% for object in object_list %}
+         <div class="col-4">
+              <div class="card shadow-sm" style="margin-top: 10px; margin-bottom: 10px">
+                  <div class="card-body">
+                      <h4 class="card-text">{{ object.title | title |truncatechars:20  }}</h4>
+                      <p>{{ object.content | title |truncatechars:33 }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                              <a href="{% url 'blog:view' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">view</a>
+                              <a href="{% url 'blog:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">edit</a>
+                              <a href="{% url 'blog:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">delete</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+         </div>
+    {% endfor %}
+{% endblock %}
+
