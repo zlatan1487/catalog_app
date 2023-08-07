@@ -25,6 +25,8 @@
                     <h4 class="text-white">Меню</h4>
                     <ul class="list-unstyled">
                         <li><a href="{% url 'catalog:product_list' %}" class="text-white">Главная</a></li>
+                        <li><a href="{% url 'blog:list' %}" class="text-white">Блог</a></li>
+
                         <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
 
                     </ul>
@@ -56,7 +58,6 @@
 
     <div class="album py-5 bg-light" style="display: flex; justify-content: center;">
     <div class="container">
-
         <div class="row" style="margin: auto;">
             {% block content %}
             {% endblock %}

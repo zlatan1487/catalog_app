@@ -1,17 +1,59 @@
 {% extends 'catalog/base.html' %}
+{% load mediapath_tags %}
 
 {% block content %}
-    <div class="col-12">
-        <div class="row">
-            <div class="col-12">
-                <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" class="row" style="margin: auto;">
+        {% if object %}
+            <div class="col-6">
+                <div class="card">
+                    <h3 class="card-header">
+                        Редактирование продукта
+                    </h3>
+                    <div class="card-body">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary">Создать</button>
-                    </form>
+                        <label for="custom-upload" class="custom-upload-button">Загрузить фото</label>
+                        <input type="file" id="custom-upload" name="photo" style="display: none;" data-file-name="{% mediapath object.photo %}">
+                        <button type="submit" class="btn btn-primary">
+                            Сохранить
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="col-6">
+                <div class="card">
+                    <h3 class="card-header">
+                        Версии
+                    </h3>
+                    <div class="card-body">
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                            {{ form.as_p }}
+                            {% if forloop.revcounter0 != 0 %}
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+
+            <div class="col-12">
+                <div class="card" style="width: 650px">
+                    <h3 class="card-header">
+                        Добавление продукта
+                    </h3>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <label for="custom-upload" class="custom-upload-button">Загрузить фото</label>
+                        <input type="file" id="custom-upload" name="photo" style="display: none;" data-file-name="{% mediapath object.photo %}">
+                        <button type="submit" class="btn btn-primary">
+                            Создать
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </form>
 {% endblock %}

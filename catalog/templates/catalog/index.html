@@ -8,19 +8,26 @@
 
     {% for object in object_list %}
          <div class="col-4">
-              <div class="card shadow-sm" style="margin-top: 10px; margin-bottom: 10px">
+              <div class="card shadow-sm" style="margin-top: 50px; margin-bottom: 10px">
+                  <div class="card-header">
+                      категория: {{ object.category }}
+                  </div>
                   <div class="card-body">
                       <h4 class="card-text">{{ object.title | title |truncatechars:20  }}</h4>
                       <p>{{ object.description | title |truncatechars:33 }}</p>
+                      <p><b>Активные версии:</b>
+                          {% for version in active_versions %}
+                              {% if version.product == object %}
+                                {{ version.version_name }}{% if not forloop.last %}, {% endif %}
+                              {% endif %}
+                          {% endfor %}
+                      </p>
+                  </div>
+                  <div class="card-footer">
                       <div class="d-flex justify-content-between align-items-center">
-                          <div class="btn-group">
-                              <a href="{% url 'catalog:product_detail' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">view</a>
-                              <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">edit</a>
-                              <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">delete</a>
-
-                          </div>
-
-                          <a class="btn btn-warning" href="{% url 'catalog:toggle_activity' object.pk %}">deactivate</a>
+                          <a href="{% url 'catalog:product_detail' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">посмотреть</a>
+                          <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-sm btn-outline-success">изменить</a>
+                          <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">удалить</a>
                       </div>
                   </div>
               </div>

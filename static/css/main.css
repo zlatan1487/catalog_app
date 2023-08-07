@@ -53,6 +53,40 @@ textarea {
 }
 
 
+/* Стилизация кнопки загрузки */
+input[type="file"] {
+  display: none; /* Скрываем оригинальную кнопку загрузки */
+}
+
+.custom-upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Стилизация элемента отображения выбранного файла */
+.custom-file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Отображение имени выбранного файла */
+.custom-file-label::after {
+  content: "Выберите файл";
+}
+
+/* Обновление отображения имени файла при выборе файла */
+input[type="file"]:valid + .custom-file-label::after {
+  content: attr(data-file-name);
+}
+
 
 
 
