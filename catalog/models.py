@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -10,8 +11,10 @@ class Product(models.Model):
     preview = models.ImageField(upload_to='product_images/', null=True, blank=True, verbose_name='фото')
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='цена')
 
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
+
     def __str__(self):
-        return f'{self.title} ({self.category})'
+        return f'{self.title}'
 
     class Meta:
         verbose_name = 'товар'

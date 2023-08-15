@@ -1,5 +1,6 @@
 from django.urls import path
 from catalog.apps import CatalogConfig
+from django.contrib.auth.decorators import login_required
 from catalog.views import ProductListView, \
                           ProductDetailView, \
                           ContactsView, \

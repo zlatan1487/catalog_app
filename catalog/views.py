@@ -5,13 +5,19 @@ from django.forms import inlineformset_factory
 from catalog.models import Category, Product, Version
 from pytils.translit import slugify
 from catalog.forms import ProductForm, VersionForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 
 
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/index.html'
     context_object_name = 'object_list'
-    extra_context = {'title': 'Продукты'}
+    success_url = reverse_lazy('catalog:index')
+
+    extra_context = {
+        'title': 'Продукты',
+    }
     active_versions = Version.objects.filter(is_current_version=True)
 
     def get_context_data(self, **kwargs):
@@ -19,6 +25,10 @@ class ProductListView(ListView):
         active_versions = Version.objects.filter(is_current_version=True)
         context['active_versions'] = active_versions
         return context
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Product.objects.filter(owner=self.request.user)
 
 
 class ProductDetailView(DetailView):
@@ -38,11 +48,9 @@ class ProductCreateView(CreateView):
     success_url = reverse_lazy('catalog:product_list')
 
     def form_valid(self, form):
-        if form.is_valid():
-            new_product = form.save()
-            new_product.slug = slugify(new_product.title)
-            new_product.save()
-
+        self.object = form.save()
+        self.object.owner = self.request.user
+        self.object.save()
         return super().form_valid(form)
 
 
