@@ -3,6 +3,7 @@ from users.models import User
 from catalog.forms import StyleFormMixin
 from django import forms
 
+
 class UserRegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User

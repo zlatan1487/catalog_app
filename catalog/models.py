@@ -13,6 +13,7 @@ class Product(models.Model):
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Владелец')
 
+
     def __str__(self):
         return f'{self.title}'
 

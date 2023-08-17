@@ -5,8 +5,9 @@ from django.forms import inlineformset_factory
 from catalog.models import Category, Product, Version
 from pytils.translit import slugify
 from catalog.forms import ProductForm, VersionForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 class ProductListView(ListView):
@@ -26,9 +27,19 @@ class ProductListView(ListView):
         context['active_versions'] = active_versions
         return context
 
+    # def get_queryset(self):
+    #     if self.request.user.is_authenticated:
+    #         return Product.objects.filter(owner=self.request.user)
+
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            return Product.objects.filter(owner=self.request.user)
+            if self.request.user.is_staff:
+                return Product.objects.all()  # Возвращаем все продукты для администратора
+            else:
+                return Product.objects.filter(
+                    owner=self.request.user)  # Возвращаем продукты, принадлежащие пользователю
+        else:
+            return Product.objects.none()  # Возвращаем пустой QuerySet для неаутентифицированных пользователей
 
 
 class ProductDetailView(DetailView):
@@ -54,9 +65,19 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UserPassesTestMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    permission_required = "catalog:update_product"
+
+    def test_func(self):
+        return self.get_object().owner == self.request.user
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user and not self.request.user.is_staff:
+            raise Http404
+        return self.object
 
     def get_success_url(self):
         return reverse('catalog:update_product', args=[self.kwargs.get('pk')])

@@ -2,6 +2,7 @@
 {% load mediapath_tags %}
 
 {% block content %}
+
     <div class="col-12">
         <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
     </div>
@@ -26,7 +27,11 @@
                   <div class="card-footer">
                       <div class="d-flex justify-content-between align-items-center">
                           <a href="{% url 'catalog:product_detail' object.pk %}" type="button" class="btn btn-sm btn-outline-secondary">посмотреть</a>
-                          <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-sm btn-outline-success">изменить</a>
+                            {% if user.is_authenticated %}
+                                {% if is_moderator or user == object.owner %}
+                                    <a href="{% url 'catalog:update_product' object.pk %}" type="button" class="btn btn-sm btn-outline-success">изменить</a>
+                                {% endif %}
+                            {% endif %}
                           <a href="{% url 'catalog:delete_product' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">удалить</a>
                       </div>
                   </div>
