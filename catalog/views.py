@@ -27,19 +27,15 @@ class ProductListView(ListView):
         context['active_versions'] = active_versions
         return context
 
-    # def get_queryset(self):
-    #     if self.request.user.is_authenticated:
-    #         return Product.objects.filter(owner=self.request.user)
-
     def get_queryset(self):
         if self.request.user.is_authenticated:
             if self.request.user.is_staff:
-                return Product.objects.all()  # Возвращаем все продукты для администратора
+                return Product.objects.all()
             else:
                 return Product.objects.filter(
-                    owner=self.request.user)  # Возвращаем продукты, принадлежащие пользователю
+                    owner=self.request.user)
         else:
-            return Product.objects.none()  # Возвращаем пустой QuerySet для неаутентифицированных пользователей
+            return Product.objects.none()
 
 
 class ProductDetailView(DetailView):
