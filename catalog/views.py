@@ -8,6 +8,10 @@ from catalog.forms import ProductForm, VersionForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.core.cache import cache
+from django.contrib.auth.decorators import login_required
+from config import settings
+from catalog.services import get_categories_cache
 
 
 class ProductListView(ListView):
@@ -25,6 +29,11 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         active_versions = Version.objects.filter(is_current_version=True)
         context['active_versions'] = active_versions
+
+        # Using your function to get cached categories
+        categories = get_categories_cache()
+        context['category_list'] = categories
+
         return context
 
     def get_queryset(self):
@@ -42,11 +51,6 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'товар'
-        return context
 
 
 class ProductCreateView(CreateView):
@@ -113,4 +117,12 @@ class ContactsView(TemplateView):
         context['title'] = 'Контакты'
         return context
 
+
+@login_required
+def categories(request):
+    context = {
+        'product': get_categories_cache(),
+    }
+
+    return render(request, 'product_detail.html', context)
 
